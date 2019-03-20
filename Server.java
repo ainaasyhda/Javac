@@ -17,10 +17,10 @@ public class Server
             server = new ServerSocket(port); 
             System.out.println("Server begin"); 
   
-            System.out.println("Waiting For Client...."); 
+            System.out.println("Assalamualaikum !!"); 
   
             socket = server.accept(); 
-            System.out.println("yeayy!! Connected successful."); 
+            System.out.println("Waalaikumsalam !!"); 
   
             // takes input from the client socket 
             in = new DataInputStream( 
