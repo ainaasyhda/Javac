@@ -38,8 +38,6 @@ int main(int argc, char const *argv[])
         return -1; 
     } 
     send(sock , hello , strlen(hello) , 0 ); 
-    printf("Your message is delivered!\n"); 
-    valread = read( sock , buffer, 1024); 
-    printf("%s\n",buffer ); 
+    printf("Your message is delivered!\n");  
     return 0; 
 } 
