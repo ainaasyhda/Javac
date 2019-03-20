@@ -10,7 +10,7 @@
 int main(int argc, char const *argv[]) 
 { 
     struct sockaddr_in address; 
-    int sock = 0, valread; 
+    int sock = 0 ; 
     struct sockaddr_in serv_addr; 
     char *hello = "Assalamualaikum!! from client"; 
     char buffer[1024] = {0}; 
@@ -34,7 +34,7 @@ int main(int argc, char const *argv[])
    
     if (connect(sock, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0) 
     { 
-        printf("\nFailed to Connected\n"); 
+        printf("\nFailed to Connect\n"); 
         return -1; 
     } 
     send(sock , hello , strlen(hello) , 0 ); 
