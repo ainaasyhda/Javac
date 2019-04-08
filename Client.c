@@ -1,45 +1,153 @@
-#include <stdio.h> 
-#include <sys/socket.h> 
-#include <stdlib.h> 
-#include <netinet/in.h> 
-#include <unistd.h>
-#include <arpa/inet.h>
-#include <string.h> 
-#define PORT 5555 
-   
-int main(int argc, char const *argv[]) 
-{ 
-    struct sockaddr_in address; 
-    int sock = 0, valread; 
-    struct sockaddr_in serv_addr; 
-    char *hello = "Hello from client"; 
-    char buffer[1024] = {0}; 
-    if ((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0) 
-    { 
-        printf("\n Socket menghadapi kesulitan \n"); 
-        return -1; 
-    } 
-   
-    memset(&serv_addr, '0', sizeof(serv_addr)); 
-   
-    serv_addr.sin_family = AF_INET; 
-    serv_addr.sin_port = htons(PORT); 
-       
-    // Convert IPv4 and IPv6 addresses from text to binary form 
-    if(inet_pton(AF_INET, "192.168.47.128", &serv_addr.sin_addr)<=0)  
-    { 
-        printf("\nInvalid address/ Address not supported \n"); 
-        return -1; 
-    } 
-   
-    if (connect(sock, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0) 
-    { 
-        printf("\nConnection Gagal \n"); 
-        return -1; 
-    } 
-    send(sock , hello , strlen(hello) , 0 ); 
-    printf("Assalammualaikum dihantar...\n");  
-    printf("%s\n",buffer ); 
-    return 0; 
-} 
+import java.util.Scanner;
 
+
+
+import java.io.*;
+
+
+
+import java.net.*;
+
+
+
+import java.net.Socket.*;
+
+
+
+
+
+class TCPClient {
+
+
+
+ public static void main(String argv[]) throws IOException {
+
+
+
+  String sentence;
+
+
+
+  String modifiedSentence;
+
+ 
+
+  Scanner n = new Scanner(System.in);
+
+
+
+  System.out.print("Do you want to ping or send message ? ( 1 - Ping , 2 - Message) \n");
+
+
+
+    int input = n.nextInt();
+
+ 
+
+ if(input == 1)
+
+{
+
+    
+
+    String ipAddress = "192.168.47.128"; 
+
+
+
+    InetAddress geek = InetAddress.getByName(ipAddress); 
+
+
+
+    System.out.println("Sending Ping Request to " + ipAddress); 
+
+
+
+    if (geek.isReachable(5000)) 
+
+
+
+      System.out.println("Host is reachable"); 
+
+
+
+    else
+
+
+
+      System.out.println("Sorry ! We can't reach to this host"); 
+
+
+
+}
+
+
+
+
+
+
+
+else
+
+{
+
+
+
+while(true)
+
+{
+
+BufferedReader inFromUser = new BufferedReader(new 
+
+InputStreamReader(System.in));
+
+
+
+  
+
+  Socket clientSocket = new Socket("192.168.47.129", 22000);
+
+
+
+DataOutputStream outToServer = new 
+
+DataOutputStream(clientSocket.getOutputStream());
+
+
+
+  BufferedReader inFromServer = new BufferedReader(new 
+
+InputStreamReader(clientSocket.getInputStream()));
+
+
+
+
+
+     sentence = inFromUser.readLine();
+
+   
+
+     outToServer.writeBytes(sentence);
+
+
+
+
+
+  modifiedSentence = inFromServer.readLine();
+
+
+
+  System.out.println("FROM SERVER: " + modifiedSentence);
+
+
+
+
+
+  clientSocket.close();
+
+}
+
+}
+
+}
+
+}
